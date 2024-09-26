@@ -4,10 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Pendaftaran</title>
+    <script>
+        function tampilkanHasil(event) {
+            event.preventDefault(); // Mencegah form dikirim secara default
+
+            // Mengambil nilai dari form
+            const nama = document.getElementById("nama").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const tgl_lahir = document.getElementById("tgl_lahir").value;
+            const umur = document.getElementById("umur").value;
+            const jenis_kelamin = document.querySelector('input[name="jenis_kelamin"]:checked').value;
+            const telepon = document.getElementById("telepon").value;
+            const foto = document.getElementById("foto").files[0] ? document.getElementById("foto").files[0].name : "Tidak diunggah";
+            const persetujuan = document.getElementById("persetujuan").checked ? "Disetujui" : "Tidak disetujui";
+
+            // Menampilkan hasil
+            const hasil = `
+                <h3>Hasil Pendaftaran</h3>
+                <p><strong>Nama Lengkap:</strong> ${nama}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Password:</strong> ${password}</p>
+                <p><strong>Tanggal Lahir:</strong> ${tgl_lahir}</p>
+                <p><strong>Umur:</strong> ${umur}</p>
+                <p><strong>Jenis Kelamin:</strong> ${jenis_kelamin}</p>
+                <p><strong>Nomor Telepon:</strong> ${telepon}</p>
+                <p><strong>Foto Profil:</strong> ${foto}</p>
+                <p><strong>Persetujuan Syarat dan Ketentuan:</strong> ${persetujuan}</p>
+            `;
+            document.getElementById("hasil").innerHTML = hasil;
+        }
+    </script>
 </head>
 <body>
     <h2>Form Pendaftaran</h2>
-    <form action="#" method="post">
+    <form onsubmit="tampilkanHasil(event)">
         <!-- Nama Lengkap -->
         <label for="nama">Nama Lengkap:</label><br>
         <input type="text" id="nama" name="nama" required minlength="3" placeholder="Masukkan nama lengkap"><br><br>
@@ -45,10 +76,13 @@
         
         <!-- Syarat dan Ketentuan -->
         <label>
-            <input type="checkbox" name="persetujuan" required> Saya setuju dengan <a href="#">syarat dan ketentuan</a>.
+            <input type="checkbox" id="persetujuan" name="persetujuan" required> Saya setuju dengan <a href="#">syarat dan ketentuan</a>.
         </label><br><br>
         
         <input type="submit" value="Daftar">
     </form>
+
+    <!-- Area untuk menampilkan hasil -->
+    <div id="hasil"></div>
 </body>
 </html>
